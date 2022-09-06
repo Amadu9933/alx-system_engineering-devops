@@ -9,4 +9,4 @@ echo "text" > file, overwrites file with text
 ls -la > ls_cwd_content is used to write ls -la out to the file
 tail -n 1 iacta >> iacta duplicates the last line of iacta
 find . -name "*.js" -delete finds and removes all files with .js extention that are present in the current directory and all its subfolders
-find . -type d | wc -l, counts number of directories and sub directories 
+ls -t |head -n 12 prints the newest twelve 
