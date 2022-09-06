@@ -6,3 +6,4 @@ tail is used to display lines in a file from the end, use -n followed by the num
 head -n 10 /etc/passwd displays the first 10 lines of the file
 head -n -3 iacta | tail -n 1 dispays only the third line of the file
 echo "text" > file, overwrites file with text
+ls -la > ls_cwd_content is used to write ls -la out to the file
