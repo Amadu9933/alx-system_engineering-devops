@@ -8,3 +8,4 @@ head -n -3 iacta | tail -n 1 dispays only the third line of the file
 echo "text" > file, overwrites file with text
 ls -la > ls_cwd_content is used to write ls -la out to the file
 tail -n 1 iacta >> iacta duplicates the last line of iacta
+find . -name "*.js" -exec rm -rf {} \; looks for all .js files and removes them
