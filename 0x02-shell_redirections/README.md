@@ -4,3 +4,4 @@ cat /etc/passwd displays the contents of /etc/passwd, the cat command is short f
 cat /etc/passwd /etc/hosts displays the contents of both files
 tail is used to display lines in a file from the end, use -n followed by the number of lines do display eg. tail -n /etc/passwd 10 displays last ten lines of the file
 head -n 10 /etc/passwd displays the first 10 lines of the file
+head -n -3 iacta | tail -n 1 dispays only the third line of the file
