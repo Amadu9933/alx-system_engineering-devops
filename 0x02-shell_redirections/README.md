@@ -9,4 +9,4 @@ echo "text" > file, overwrites file with text
 ls -la > ls_cwd_content is used to write ls -la out to the file
 tail -n 1 iacta >> iacta duplicates the last line of iacta
 find . -name "*.js" -delete finds and removes all files with .js extention that are present in the current directory and all its subfolders
-cat list | sort | uniq -c | grep 1 | tr -d "1 " get all unique words from a file
+cat /etc/passwd | grep root -A 3, Display lines containing the pattern “root” and 3 lines after them in the file /etc/passwd.
