@@ -9,15 +9,14 @@ defaults
 	timeout connect  10s
 	timeout client  30s
 	timeout server  30s
+frontend hamraaz.tech-frontend
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/hamraaz.tech.pem 
+    http-request set header x-forwarded-proto https
+    default_backend hamraaz.tech-backend
 
-frontend th3gr00t-tech-frontend
-	bind *:80
-	bind *:443 ssl crt /etc/haproxy/certs/th3gr00t.tech.pem
-	http-request redirect scheme https code 301 unless { ssl_fc }
-	http-request set-header X-Forwarded-Proto https
-	default_backend th3gr00t-tech-backend
-
-backend th3gr00t-tech-backend
-	balance roundrobin
-	server 453-web-01 35.243.128.200:80 check
-	server 453-web-02 3.239.120.96:80 check
+backend hamraaz.tech-backend
+    mode http
+    balance roundrobin
+    server 99764-web-01 35.153.33.229:80 check
+    server 99764-web-02 100.25.140.237:80 checki
