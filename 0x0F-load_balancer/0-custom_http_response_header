@@ -1,20 +1,9 @@
 #!/usr/bin/env bash
-
-# Define the IP addresses of the web servers
-
-WEB_SERVERS=( "web-01" "web-02" )
-
-# Define the command to set the custom HTTP header in Nginx
-
-NGINX_CMD='echo "add_header X-Served-By \$hostname;" | sudo tee -a /etc/nginx/nginx.conf >/dev/null'
-
-# Loop through the web servers and configure Nginx with the custom HTTP header
-for SERVER in "${WEB_SERVERS[@]}"
-do
-    echo "Configuring $SERVER..."
-    ssh ubuntu@"$SERVER" "$NGINX_CMD"
-    ssh ubuntu@"$SERVER" sudo service nginx restart
-done
-
-echo "Done!"
-
+# Configures a new Ubuntu server with a custom HTTP header response
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Holberton School' > /var/www/html/index.nginx-debian.html
+sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sed -i '/listen 80 default_server;/a add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
+service nginx start
