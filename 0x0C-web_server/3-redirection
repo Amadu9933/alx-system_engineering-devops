@@ -1,26 +1,26 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Configures a new ubuntu machine by installing
+# Nginx listening on port 80
 
-# Install Nginx web server
-sudo apt-get update
-sudo apt-get install nginx -y
 
-# Create a new server block for the redirection
-sudo tee /etc/nginx/sites-available/redirect_me << EOF
-server {
-    listen 80;
-    server_name example.com;
+ sudo apt-get update -y -qq && \
+        sudo apt-get install nginx -y
 
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
 
-    # Other server configurations
-}
-EOF
 
-# Create a symbolic link to enable the new server block
-sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
+# starting nginx service and allow on firewall
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
 
-# Test the Nginx configuration and reload Nginx service
-sudo nginx -t && sudo systemctl reload nginx
+# Give the user ownership to website files and back up index files
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Creating a new index file piped into index and restart nginx
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
+
+# Set up /redirect_me
+sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo service nginx restart
 
